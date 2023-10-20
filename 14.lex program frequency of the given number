@@ -1,0 +1,20 @@
+%{
+#include <stdio.h>
+#include <string.h>
+int word_count = 0;
+%}
+
+%%
+"your_word" {
+    word_count++;
+}
+.|\n {
+    /* Ignore other characters */
+}
+%%
+
+int main() {
+    yylex();
+    printf("Frequency of 'your_word': %d\n", word_count);
+    return 0;
+}
