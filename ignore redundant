@@ -1,0 +1,50 @@
+#include <stdio.h>
+#include <stdbool.h>
+
+void skipSpacesAndTabs(char **input) {
+    while (**input == ' ' || **input == '\t') {
+        (*input)++;
+    }
+}
+
+void skipComment(char **input) {
+    if (**input == '/' && *(*input + 1) == '/') {
+        while (**input != '\0' && **input != '\n') {
+            (*input)++;
+        }
+    }
+}
+
+int main() {
+    char input[1000];
+    printf("Enter a string: ");
+    fgets(input, sizeof(input), stdin);
+
+    char *current = input;
+
+    while (*current != '\0') {
+        skipSpacesAndTabs(&current);
+
+        if (*current == '\0') {
+            break;
+        }
+
+        if (*current == '/' && *(current + 1) == '/') {
+            skipComment(&current);
+        } else {
+            char token[100];
+            int i = 0;
+
+            while (*current != ' ' && *current != '\t' && *current != '\n' && *current != '\0') {
+                token[i++] = *current;
+                current++;
+            }
+
+            token[i] = '\0';
+
+            printf("Token: %s\n", token);
+        }
+    }
+
+    return 0;
+}
