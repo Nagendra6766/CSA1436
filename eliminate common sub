@@ -1,0 +1,24 @@
+#include <stdio.h>
+
+int main() {
+    int a = 5, b = 3, c, d, e, f, g;
+
+    // Common Subexpression Elimination:
+    // Instead of computing a*b twice, compute it once and store in a temporary variable.
+
+    int temp = a * b; // Common subexpression a * b
+
+    c = temp + a;
+    d = temp - b;
+    e = temp * c;
+    f = temp + d;
+    g = temp / e;
+
+    // Output results
+    printf("c: %d\n", c);
+    printf("d: %d\n", d);
+    printf("e: %d\n", e);
+    printf("f: %d\n", f);
+    printf("g: %d\n", g);
+
+   
