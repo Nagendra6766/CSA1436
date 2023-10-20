@@ -1,0 +1,17 @@
+%{
+#include <stdio.h>
+%}
+
+%option noyywrap
+
+%%
+[ \t]+                  { /* Ignore whitespace */ }
+\n                      { printf("End of Line\n"); }
+int|char|void           { printf("Data Type: %s\n", yytext); }
+[_a-zA-Z][_a-zA-Z0-9]*  { printf("Identifier: %s\n", yytext); }
+[0-9]+                  { printf("Integer Constant: %s\n", yytext); }
+\".*\"                   { printf("String Literal: %s\n", yytext); }
+'.'                     { printf("Character Constant: %s\n", yytext); }
+\+|-|\*|\/|%             { printf("Operator: %s\n", yytext); }
+\(|\)|\{|\}|;|,         { printf("Punctuation: %s\n", yytext); }
+==|!=|<=|>=|<|>         { printf("Relational Operator: %s\n
