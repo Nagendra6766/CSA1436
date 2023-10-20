@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include <string.h>
+
+int quadCount = 0; // Counter for quadruples
+
+// Structure to represent a quadruple
+struct Quadruple {
+    char op;
+    char arg1[10];
+    char arg2[10];
+    char result[10];
+};
+
+// Function to print a quadruple
+void printQuadruple(struct Quadruple q) {
+    printf("%d: (%c, %s, %s, %s)\n", quadCount, q.op, q.arg1, q.arg2, q.result);
+    quadCount++;
+}
+
+int main() {
+    struct Quadruple quadruples[100]; // Array to store quadruples
+    char expression[100];
+
+    printf("Enter an arithmetic expression: ");
+    scanf("%s", expression);
+
+    // Parse the expression and generate quadruples
+    char* token = strtok(expression, "+-*/");
+    while (token != NULL) {
+        if (strchr("+-*/", token[0])) {
+            struct Quadruple q;
+            q.op = token[0];
+            strcpy(q.arg1, token);
+            token = strtok(NULL, "+-*/");
+            strcpy(q.arg2, token);
+            sprintf(q.result, "t%d", quadCount); // Generate a temporary variable name
+            printQuadruple(q);
+        }
+        token = strtok(NULL, "+-*/");
