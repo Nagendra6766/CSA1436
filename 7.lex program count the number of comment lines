@@ -1,0 +1,24 @@
+%{
+int comment_lines = 0;
+%}
+
+%%
+"/*"    { BEGIN COMMENT; }
+<COMMENT>"*/" { BEGIN INITIAL; }
+<COMMENT>.|\n    { /* Ignore comment content */ }
+
+"//"    { BEGIN LINE_COMMENT; }
+<LINE_COMMENT>.    { /* Ignore line comment content */ }
+<LINE_COMMENT>\n   { BEGIN INITIAL; comment_lines++; }
+
+.|\n {
+    /* Ignore other lines */
+}
+
+%%
+
+int main() {
+    yylex();
+    printf("Number of comment lines: %d\n", comment_lines);
+    return 0;
+}
