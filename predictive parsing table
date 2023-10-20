@@ -1,0 +1,42 @@
+#include <stdio.h>
+#include <string.h>
+
+// Define a predictive parsing table for a simple expression grammar
+char parsingTable[3][3][10] = {
+    // Table row corresponds to non-terminals (E, T, F)
+    // Table column corresponds to terminals (+, *, i)
+
+    // Production rules for E
+    { "E->TE'", "", "" },
+    { "", "", "" },
+    { "E'->+TE'", "", "E'->ε" },
+
+    // Production rules for T
+    { "T->FT'", "", "" },
+    { "", "", "" },
+    { "T'->ε", "T'->*FT'", "T'->ε" },
+
+    // Production rules for F
+    { "F->i", "", "" },
+    { "", "", "" },
+    { "F->(E)", "", "" },
+};
+
+int findNonTerminal(char symbol) {
+    if (symbol == 'E') return 0;
+    if (symbol == 'T') return 1;
+    if (symbol == 'F') return 2;
+    return -1;
+}
+
+int findTerminal(char symbol) {
+    if (symbol == 'i') return 0;
+    if (symbol == '+') return 1;
+    if (symbol == '*') return 2;
+    return -1;
+}
+
+int main() {
+    char input[100];
+    printf("Enter an expression: ");
+   
