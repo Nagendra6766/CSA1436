@@ -1,0 +1,17 @@
+%{
+#include <stdio.h>
+%}
+
+%%
+<.*> {
+    printf("HTML tag: %s\n", yytext);
+}
+.|\n {
+    /* Ignore other characters */
+}
+%%
+
+int main() {
+    yylex();
+    return 0;
+}
