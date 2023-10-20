@@ -1,0 +1,21 @@
+#include <stdio.h>
+
+int main() {
+    // Input expressions
+    int a = 5, b = 3, c = 0, d = 0;
+    
+    // Intermediate code generation
+    c = a + b;   // Addition
+    d = a - b;   // Subtraction
+    c = a * b;   // Multiplication
+    d = a / b;   // Division
+    
+    // Output intermediate code
+    printf("Intermediate Code:\n");
+    printf("ADD a, b, c\n");
+    printf("SUB a, b, d\n");
+    printf("MUL a, b, c\n");
+    printf("DIV a, b, d\n");
+
+    return 0;
+}
