@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <stdbool.h>
+#include <string.h>
+
+// Define the grammar
+char *grammar[] = {
+    "E->E+T",
+    "E->T",
+    "T->T*F",
+    "T->F",
+    "F->(E)",
+    "F->i"
+};
+
+// Define the parsing table
+char *parseTable[6][5] = {
+    { "s5", "", "", "s4", "" },
+    { "", "s6", "", "", "" },
+    { "", "r2", "s7", "r2", "r2" },
+    { "", "r4", "r4", "s8", "r4" },
+    { "s5", "", "", "s4", "" },
+    { "", "r6", "r6", "r6", "r6" }
+};
+
+// Define the input string
+char input[] = "i+i*i";
+
+// Define the parsing stack
+int stack[100];
+char symbols[100];
+int top = -1;
+
+void push(int state) {
+    stack[++top] = state;
+}
+
+int pop() {
+    return stack[top--];
+}
+
+void printStack() {
+    printf("Stack: ");
+    for (int i = 0; i <= top; i++) {
+        printf("%d ", stack[i]);
+    }
+    printf("\n");
+}
+
+int main() {
+    int state, token;
+    char *action
