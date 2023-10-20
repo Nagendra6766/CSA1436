@@ -1,0 +1,45 @@
+// C# program for the above approach
+using System;
+using System.Collections.Generic;
+
+class GFG{
+	
+// Function to check if the given
+// string is a comment or not
+static void isComment(string S)
+{
+	char[] line = S.ToCharArray();
+
+	// If two continuous slashes
+	// precedes the comment
+	if (line[0] == '/' && line[1] == '/' && 
+		line[2] != '/')
+	{
+		Console.WriteLine("It is a single-line comment");
+		return;
+	}
+
+	if (line[line.Length - 2] == '*' && 
+		line[line.Length - 1] == '/' && line[0] == '/' && line[1] == '*')
+	{
+		Console.WriteLine("It is a multi-line comment");
+		return;
+	}
+
+	Console.WriteLine("It is not a comment");
+}
+
+// Driver Code
+static public void Main()
+{
+	
+	// Given string
+	string line = "/*GeeksForGeeks GeeksForGeeks*/";
+
+	// Function call to check whether then
+	// given string is a comment or not
+	isComment(line);
+}
+}
+
+// This code is contributed by splevel62
