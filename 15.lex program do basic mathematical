@@ -1,0 +1,55 @@
+%{
+#include <stdio.h>
+%}
+
+%option noyywrap
+
+%%
+[0-9]+ {
+    printf("Number: %s\n", yytext);
+}
+
+[ \t\n] {
+    /* Ignore whitespace and newlines */
+}
+
+[+*\/-] {
+    printf("Operator: %s\n", yytext);
+}
+
+\n {
+    /* End of expression, perform calculation */
+    int result;
+    int op1, op2;
+    if (sscanf(yytext, "%d %d %c", &op1, &op2, &yytext[2]) == 3) {
+        switch (yytext[2]) {
+            case '+':
+                result = op1 + op2;
+                break;
+            case '-':
+                result = op1 - op2;
+                break;
+            case '*':
+                result = op1 * op2;
+                break;
+            case '/':
+                if (op2 != 0) {
+                    result = op1 / op2;
+                } else {
+                    printf("Error: Division by zero\n");
+                    result = 0;
+                }
+                break;
+        }
+        printf("Result: %d\n", result);
+    }
+}
+. {
+    printf("Invalid character: %s\n", yytext);
+}
+%%
+
+int main() {
+    yylex();
+    return 0;
+}
