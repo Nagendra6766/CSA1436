@@ -1,0 +1,30 @@
+%{
+#include <stdio.h>
+%}
+
+%%
+http:\/\/[^\s]+ {
+    printf("URL (HTTP): %s\n", yytext);
+}
+
+https:\/\/[^\s]+ {
+    printf("URL (HTTPS): %s\n", yytext);
+}
+
+www\.[^\s]+ {
+    printf("URL (WWW): %s\n", yytext);
+}
+
+[a-zA-Z0-9.-]+\.[a-z]{2,}\/[^\s]+ {
+    printf("URL (Generic): %s\n", yytext);
+}
+
+.|\n {
+    /* Ignore other characters */
+}
+%%
+
+int main() {
+    yylex();
+    return 0;
+}
