@@ -1,0 +1,21 @@
+#include <stdio.h>
+
+int main() {
+    int a = 5;
+    int b = 3;
+    int result;
+
+    // Dead code elimination:
+    // The following block of code is never executed and can be removed.
+
+    if (a > b) {
+        result = a + b;
+    } else {
+        result = a - b;
+    }
+
+    // The following code is not dead and is executed.
+    printf("Result: %d\n", result);
+
+    return 0;
+}
