@@ -1,0 +1,17 @@
+%{
+#include <stdio.h>
+%}
+
+%%
+^[_a-zA-Z0-9+-]+(\.[_a-zA-Z0-9+-]+)*@[_a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$ {
+    printf("Valid email address: %s\n", yytext);
+}
+.|\n {
+    printf("Invalid email address: %s\n", yytext);
+}
+%%
+
+int main() {
+    yylex();
+    return 0;
+}
