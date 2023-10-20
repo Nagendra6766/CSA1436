@@ -1,0 +1,20 @@
+%{
+#include <stdio.h>
+#include <string.h>
+
+char target[] = "old_word";   // Replace "old_word" with the new word
+%}
+
+%%
+{target} {
+    printf("new_word ");
+}
+. {
+    putchar(yytext[0]);
+}
+%%
+
+int main() {
+    yylex();
+    return 0;
+}
